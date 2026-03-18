@@ -1,0 +1,53 @@
+---
+import { t, type Lang } from '../i18n/ui';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const base = `/${lang}`;
+const switchLocale = t(lang, 'lang.switch_locale') as Lang;
+const switchLabel = t(lang, 'lang.switch_label');
+
+const currentPath = Astro.url.pathname;
+const switchPath = currentPath.replace(new RegExp(`^/${lang}`), `/${switchLocale}`);
+
+const links = [
+  { href: `${base}/projects`, label: t(lang, 'nav.projects') },
+  { href: `${base}/adventures`, label: t(lang, 'nav.adventures') },
+  { href: `${base}/about`, label: t(lang, 'nav.about') },
+];
+---
+
+<header class="border-b border-[var(--color-border)]">
+  <nav class="max-w-4xl mx-auto px-4 h-14 flex items-center justify-between gap-4">
+    <a
+      href={base}
+      class="font-semibold text-sm shrink-0 hover:text-[var(--color-accent)]"
+    >
+      Abel Sturm
+    </a>
+
+    <ul class="flex items-center gap-1 text-sm overflow-x-auto">
+      {links.map(({ href, label }) => (
+        <li>
+          <a
+            href={href}
+            class="px-3 py-1.5 rounded text-[var(--color-text-muted)] hover:text-[var(--color-text)] whitespace-nowrap"
+          >
+            {label}
+          </a>
+        </li>
+      ))}
+      <li>
+        <a
+          href={switchPath}
+          class="ml-2 px-2 py-1 rounded border border-[var(--color-border)] text-xs text-[var(--color-text-muted)] hover:text-[var(--color-text)] whitespace-nowrap"
+        >
+          {switchLabel}
+        </a>
+      </li>
+    </ul>
+  </nav>
+</header>

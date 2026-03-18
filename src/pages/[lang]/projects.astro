@@ -1,0 +1,73 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Nav from '../../components/Nav.astro';
+import ProjectCard from '../../components/ProjectCard.astro';
+import { t, SUPPORTED_LOCALES, type Lang } from '../../i18n/ui';
+
+export function getStaticPaths() {
+  return SUPPORTED_LOCALES.map((lang) => ({ params: { lang } }));
+}
+
+const lang = (Astro.params.lang ?? 'es') as Lang;
+
+const allProjects = await getCollection('projects');
+const sorted = allProjects.sort((a, b) => (a.data.order ?? 99) - (b.data.order ?? 99));
+
+const personalProjects = sorted.filter((p) => p.data.category === 'personal');
+const workProjects = sorted.filter((p) => p.data.category === 'work');
+---
+
+<BaseLayout
+  title={`${t(lang, 'projects.title')} — Abel Sturm`}
+  description={t(lang, 'home.subtitle')}
+  lang={lang}
+>
+  <Nav lang={lang} />
+
+  <main class="max-w-4xl mx-auto px-4 py-12 sm:py-16">
+    <h1 class="text-3xl font-bold mb-12">{t(lang, 'projects.title')}</h1>
+
+    <!-- Personal projects -->
+    <section class="mb-12">
+      <h2 class="text-sm font-medium uppercase tracking-widest text-[var(--color-text-muted)] mb-6">
+        {t(lang, 'projects.personal')}
+      </h2>
+      <div class="grid gap-4 sm:grid-cols-2">
+        {personalProjects.map((project) => (
+          <ProjectCard
+            title={project.data.title}
+            description={project.data.description}
+            stack={project.data.stack}
+            category={project.data.category}
+            status={project.data.status}
+            github={project.data.github}
+            live={project.data.live}
+            lang={lang}
+          />
+        ))}
+      </div>
+    </section>
+
+    <!-- Work projects -->
+    <section>
+      <h2 class="text-sm font-medium uppercase tracking-widest text-[var(--color-text-muted)] mb-6">
+        {t(lang, 'projects.work')}
+      </h2>
+      <div class="grid gap-4 sm:grid-cols-2">
+        {workProjects.map((project) => (
+          <ProjectCard
+            title={project.data.title}
+            description={project.data.description}
+            stack={project.data.stack}
+            category={project.data.category}
+            status={project.data.status}
+            github={project.data.github}
+            live={project.data.live}
+            lang={lang}
+          />
+        ))}
+      </div>
+    </section>
+  </main>
+</BaseLayout>

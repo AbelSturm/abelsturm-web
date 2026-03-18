@@ -1,0 +1,62 @@
+---
+import { t, type Lang } from '../i18n/ui';
+
+interface Props {
+  title: string;
+  description: string;
+  stack: string[];
+  category: 'personal' | 'work';
+  status?: 'active' | 'paused';
+  github?: string;
+  live?: string;
+  lang: Lang;
+}
+
+const { title, description, stack, status, github, live, lang } = Astro.props;
+---
+
+<article class="flex flex-col gap-3 p-4 rounded-lg border border-[var(--color-border)] bg-[var(--color-bg-subtle)]">
+  <div class="flex items-start justify-between gap-2">
+    <h3 class="font-semibold leading-snug">{title}</h3>
+    {status === 'paused' && (
+      <span class="shrink-0 text-xs px-1.5 py-0.5 rounded bg-[var(--color-border)] text-[var(--color-text-muted)]">
+        {t(lang, 'projects.status_paused')}
+      </span>
+    )}
+  </div>
+
+  <p class="text-sm text-[var(--color-text-muted)] flex-1 leading-relaxed">{description}</p>
+
+  <div class="flex flex-wrap gap-1.5">
+    {stack.map((tech) => (
+      <span class="text-xs px-1.5 py-0.5 rounded border border-[var(--color-border)] bg-[var(--color-bg)] font-mono text-[var(--color-text-muted)]">
+        {tech}
+      </span>
+    ))}
+  </div>
+
+  {(github || live) && (
+    <div class="flex gap-4 text-sm pt-1">
+      {github && (
+        <a
+          href={github}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="text-[var(--color-accent)] hover:underline"
+        >
+          {t(lang, 'projects.github')}
+        </a>
+      )}
+      {live && (
+        <a
+          href={live}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="text-[var(--color-accent)] hover:underline"
+        >
+          {t(lang, 'projects.live')}
+        </a>
+      )}
+    </div>
+  )}
+</article>

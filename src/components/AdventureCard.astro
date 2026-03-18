@@ -1,0 +1,39 @@
+---
+import { t, type Lang, type UiKey } from '../i18n/ui';
+
+type Category = 'climbing' | 'motorcycle' | 'mountains';
+
+interface Props {
+  title: string;
+  category: Category;
+  date: Date;
+  description: string;
+  lang: Lang;
+}
+
+const { title, category, date, description, lang } = Astro.props;
+
+const categoryKeyMap: Record<Category, UiKey> = {
+  climbing: 'adventures.cat.climbing',
+  motorcycle: 'adventures.cat.motorcycle',
+  mountains: 'adventures.cat.mountains',
+};
+
+const categoryLabel = t(lang, categoryKeyMap[category]);
+
+const formattedDate = date.toLocaleDateString(lang === 'es' ? 'es-ES' : 'en-GB', {
+  year: 'numeric',
+  month: 'long',
+});
+---
+
+<article class="flex flex-col gap-2 p-4 rounded-lg border border-[var(--color-border)] bg-[var(--color-bg-subtle)]">
+  <div class="flex items-center justify-between gap-2">
+    <span class="text-xs font-medium uppercase tracking-wide text-[var(--color-accent)]">
+      {categoryLabel}
+    </span>
+    <time class="text-xs text-[var(--color-text-muted)] shrink-0">{formattedDate}</time>
+  </div>
+  <h3 class="font-semibold leading-snug">{title}</h3>
+  <p class="text-sm text-[var(--color-text-muted)] leading-relaxed">{description}</p>
+</article>

@@ -1,0 +1,39 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Nav from '../../components/Nav.astro';
+import { t, SUPPORTED_LOCALES, type Lang } from '../../i18n/ui';
+
+export function getStaticPaths() {
+  return SUPPORTED_LOCALES.map((lang) => ({ params: { lang } }));
+}
+
+const lang = (Astro.params.lang ?? 'es') as Lang;
+---
+
+<BaseLayout
+  title={`${t(lang, 'about.title')} — Abel Sturm`}
+  description={t(lang, 'about.subtitle')}
+  lang={lang}
+>
+  <Nav lang={lang} />
+
+  <main class="max-w-2xl mx-auto px-4 py-12 sm:py-16">
+    <h1 class="text-3xl font-bold mb-10">{t(lang, 'about.title')}</h1>
+
+    <section class="mb-8">
+      <p class="text-base leading-relaxed text-[var(--color-text-muted)]">
+        {t(lang, 'about.intro')}
+      </p>
+      <p class="text-base leading-relaxed text-[var(--color-text-muted)] mt-3">
+        {t(lang, 'about.stack')}
+      </p>
+    </section>
+
+    <section>
+      <h2 class="text-lg font-semibold mb-3">{t(lang, 'about.side_heading')}</h2>
+      <p class="text-base leading-relaxed text-[var(--color-text-muted)]">
+        {t(lang, 'about.side')}
+      </p>
+    </section>
+  </main>
+</BaseLayout>

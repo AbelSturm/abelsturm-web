@@ -7,9 +7,9 @@ export default defineConfig({
   site: 'https://abelsturm.com',
   i18n: {
     defaultLocale: 'es',
-    locales: ['es', 'en', 'de'],
+    locales: ['es', 'en', 'ca', 'de'],
     routing: {
-      prefixDefaultLocale: false,
+      prefixDefaultLocale: true,
     },
   },
   vite: {

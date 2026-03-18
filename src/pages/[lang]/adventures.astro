@@ -1,0 +1,62 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Nav from '../../components/Nav.astro';
+import AdventureCard from '../../components/AdventureCard.astro';
+import { t, SUPPORTED_LOCALES, type Lang, type UiKey } from '../../i18n/ui';
+
+export function getStaticPaths() {
+  return SUPPORTED_LOCALES.map((lang) => ({ params: { lang } }));
+}
+
+const lang = (Astro.params.lang ?? 'es') as Lang;
+
+type Category = 'climbing' | 'motorcycle' | 'mountains';
+
+const allAdventures = await getCollection('adventures');
+const sorted = allAdventures.sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
+
+const categories: Category[] = ['climbing', 'motorcycle', 'mountains'];
+
+const categoryKeyMap: Record<Category, UiKey> = {
+  climbing: 'adventures.cat.climbing',
+  motorcycle: 'adventures.cat.motorcycle',
+  mountains: 'adventures.cat.mountains',
+};
+---
+
+<BaseLayout
+  title={`${t(lang, 'adventures.title')} — Abel Sturm`}
+  description={t(lang, 'adventures.subtitle')}
+  lang={lang}
+>
+  <Nav lang={lang} />
+
+  <main class="max-w-4xl mx-auto px-4 py-12 sm:py-16">
+    <h1 class="text-3xl font-bold mb-2">{t(lang, 'adventures.title')}</h1>
+    <p class="text-[var(--color-text-muted)] mb-12">{t(lang, 'adventures.subtitle')}</p>
+
+    {categories.map((category) => {
+      const items = sorted.filter((a) => a.data.category === category);
+      if (items.length === 0) return null;
+      return (
+        <section class="mb-12">
+          <h2 class="text-sm font-medium uppercase tracking-widest text-[var(--color-text-muted)] mb-6">
+            {t(lang, categoryKeyMap[category])}
+          </h2>
+          <div class="grid gap-4 sm:grid-cols-2">
+            {items.map((adventure) => (
+              <AdventureCard
+                title={adventure.data.title}
+                category={adventure.data.category}
+                date={adventure.data.date}
+                description={adventure.data.description}
+                lang={lang}
+              />
+            ))}
+          </div>
+        </section>
+      );
+    })}
+  </main>
+</BaseLayout>

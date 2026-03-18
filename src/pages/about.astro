@@ -1,9 +1,5 @@
 ---
-import BaseLayout from '../layouts/BaseLayout.astro';
+// Redirect legacy /about to default locale
 ---
-
-<BaseLayout
-  title="Abel Sturm — Sobre mí"
-  description="Sobre Abel Sturm."
->
-</BaseLayout>
+<meta http-equiv="refresh" content="0;url=/es/about" />
+<link rel="canonical" href="/es/about" />
