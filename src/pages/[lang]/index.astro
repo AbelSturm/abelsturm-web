@@ -32,65 +32,80 @@ const featuredAdventures = allAdventures
 >
   <Nav lang={lang} />
 
-  <main class="max-w-4xl mx-auto px-4 py-16 sm:py-24">
-    <!-- Hero -->
-    <section class="mb-20 sm:mb-28">
-      <h1 class="text-4xl sm:text-5xl font-bold tracking-tight mb-4">Abel Sturm</h1>
-      <p class="text-lg sm:text-xl italic text-[var(--color-text-muted)] mb-2">
+  <!-- Hero -->
+  <section class="relative min-h-[60vh] flex flex-col justify-end overflow-hidden px-5 pb-16 sm:pb-24 max-w-5xl mx-auto w-full">
+    <div class="hero-bg" data-parallax></div>
+    <div class="relative z-10 pt-24">
+      <h1
+        data-reveal
+        class="text-[clamp(3.5rem,10vw,7.5rem)] leading-[0.92] tracking-[-0.04em] mb-6"
+        transition:name="hero-title"
+      >
+        Abel Sturm
+      </h1>
+      <p
+        data-reveal
+        data-reveal-delay="90"
+        class="text-lg sm:text-xl italic font-light text-[var(--color-text-muted)] mb-2 max-w-xl"
+      >
         {t(lang, 'home.tagline')}
       </p>
-      <p class="text-base text-[var(--color-text-muted)]">
+      <p
+        data-reveal
+        data-reveal-delay="160"
+        class="text-base text-[var(--color-text-muted)] font-light"
+      >
         {t(lang, 'home.subtitle')}
       </p>
-    </section>
+    </div>
+  </section>
 
+  <main class="max-w-5xl mx-auto px-5 pb-20 sm:pb-28">
     <!-- Featured Projects -->
-    <section class="mb-16">
-      <div class="flex items-baseline justify-between mb-6">
-        <h2 class="text-xl font-semibold">{t(lang, 'home.featured_projects')}</h2>
-        <a
-          href={`/${lang}/projects`}
-          class="text-sm text-[var(--color-accent)] hover:underline"
-        >
+    <section class="mb-20">
+      <div data-reveal class="flex items-baseline justify-between mb-8">
+        <h2 class="text-2xl">{t(lang, 'home.featured_projects')}</h2>
+        <a href={`/${lang}/projects`} class="text-sm text-[var(--color-accent)] hover:underline shrink-0">
           {t(lang, 'home.see_all_projects')}
         </a>
       </div>
-      <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-        {featuredProjects.map((project) => (
-          <ProjectCard
-            title={project.data.title}
-            description={project.data.description}
-            stack={project.data.stack}
-            category={project.data.category}
-            status={project.data.status}
-            github={project.data.github}
-            live={project.data.live}
-            lang={lang}
-          />
+      <div class="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+        {featuredProjects.map((project, i) => (
+          <div data-reveal data-reveal-delay={i * 80}>
+            <ProjectCard
+              title={project.data.title}
+              description={project.data.description}
+              stack={project.data.stack}
+              category={project.data.category}
+              status={project.data.status}
+              github={project.data.github}
+              live={project.data.live}
+              lang={lang}
+            />
+          </div>
         ))}
       </div>
     </section>
 
     <!-- Featured Adventures -->
     <section>
-      <div class="flex items-baseline justify-between mb-6">
-        <h2 class="text-xl font-semibold">{t(lang, 'home.featured_adventures')}</h2>
-        <a
-          href={`/${lang}/adventures`}
-          class="text-sm text-[var(--color-accent)] hover:underline"
-        >
+      <div data-reveal class="flex items-baseline justify-between mb-8">
+        <h2 class="text-2xl">{t(lang, 'home.featured_adventures')}</h2>
+        <a href={`/${lang}/adventures`} class="text-sm text-[var(--color-accent)] hover:underline shrink-0">
           {t(lang, 'home.see_all_adventures')}
         </a>
       </div>
-      <div class="grid gap-4 sm:grid-cols-2">
-        {featuredAdventures.map((adventure) => (
-          <AdventureCard
-            title={adventure.data.title}
-            category={adventure.data.category}
-            date={adventure.data.date}
-            description={adventure.data.description}
-            lang={lang}
-          />
+      <div class="grid gap-5 sm:grid-cols-2">
+        {featuredAdventures.map((adventure, i) => (
+          <div data-reveal data-reveal-delay={i * 100}>
+            <AdventureCard
+              title={adventure.data.title}
+              category={adventure.data.category}
+              date={adventure.data.date}
+              description={adventure.data.description}
+              lang={lang}
+            />
+          </div>
         ))}
       </div>
     </section>

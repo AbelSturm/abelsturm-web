@@ -32,27 +32,37 @@ const categoryKeyMap: Record<Category, UiKey> = {
 >
   <Nav lang={lang} />
 
-  <main class="max-w-4xl mx-auto px-4 py-12 sm:py-16">
-    <h1 class="text-3xl font-bold mb-2">{t(lang, 'adventures.title')}</h1>
-    <p class="text-[var(--color-text-muted)] mb-12">{t(lang, 'adventures.subtitle')}</p>
+  <main class="max-w-5xl mx-auto px-5 py-14 sm:py-20">
+    <div data-reveal class="mb-16">
+      <h1 class="text-[clamp(2.5rem,7vw,5rem)] leading-[0.95] tracking-[-0.04em] mb-3">
+        {t(lang, 'adventures.title')}
+      </h1>
+      <p class="text-base font-light text-[var(--color-text-muted)]">{t(lang, 'adventures.subtitle')}</p>
+    </div>
 
     {categories.map((category) => {
       const items = sorted.filter((a) => a.data.category === category);
       if (items.length === 0) return null;
       return (
-        <section class="mb-12">
-          <h2 class="text-sm font-medium uppercase tracking-widest text-[var(--color-text-muted)] mb-6">
+        <section class="mb-16">
+          <h2
+            data-reveal
+            class="text-xs font-semibold uppercase tracking-[0.15em] text-[var(--color-text-muted)] mb-8 pb-3 border-b border-[var(--color-border)]"
+            style="font-family: 'Inter', system-ui, sans-serif; letter-spacing: 0.15em;"
+          >
             {t(lang, categoryKeyMap[category])}
           </h2>
-          <div class="grid gap-4 sm:grid-cols-2">
-            {items.map((adventure) => (
-              <AdventureCard
-                title={adventure.data.title}
-                category={adventure.data.category}
-                date={adventure.data.date}
-                description={adventure.data.description}
-                lang={lang}
-              />
+          <div class="grid gap-5 sm:grid-cols-2">
+            {items.map((adventure, i) => (
+              <div data-reveal data-reveal-delay={i * 100}>
+                <AdventureCard
+                  title={adventure.data.title}
+                  category={adventure.data.category}
+                  date={adventure.data.date}
+                  description={adventure.data.description}
+                  lang={lang}
+                />
+              </div>
             ))}
           </div>
         </section>

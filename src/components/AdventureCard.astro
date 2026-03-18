@@ -27,13 +27,13 @@ const formattedDate = date.toLocaleDateString(lang === 'es' ? 'es-ES' : 'en-GB',
 });
 ---
 
-<article class="flex flex-col gap-2 p-4 rounded-lg border border-[var(--color-border)] bg-[var(--color-bg-subtle)]">
+<article class="card flex flex-col gap-2 p-5 rounded-xl border border-[var(--color-border)] bg-[var(--color-bg-subtle)]">
   <div class="flex items-center justify-between gap-2">
-    <span class="text-xs font-medium uppercase tracking-wide text-[var(--color-accent)]">
+    <span class="text-xs font-semibold uppercase tracking-widest text-[var(--color-accent)]">
       {categoryLabel}
     </span>
-    <time class="text-xs text-[var(--color-text-muted)] shrink-0">{formattedDate}</time>
+    <time class="text-xs text-[var(--color-text-muted)] shrink-0 font-light">{formattedDate}</time>
   </div>
-  <h3 class="font-semibold leading-snug">{title}</h3>
-  <p class="text-sm text-[var(--color-text-muted)] leading-relaxed">{description}</p>
+  <h3 class="font-semibold leading-snug text-[var(--color-text)]">{title}</h3>
+  <p class="text-sm text-[var(--color-text-muted)] leading-relaxed font-light">{description}</p>
 </article>

@@ -17,23 +17,39 @@ const lang = (Astro.params.lang ?? 'es') as Lang;
 >
   <Nav lang={lang} />
 
-  <main class="max-w-2xl mx-auto px-4 py-12 sm:py-16">
-    <h1 class="text-3xl font-bold mb-10">{t(lang, 'about.title')}</h1>
+  <main class="max-w-5xl mx-auto px-5 py-14 sm:py-20">
+    <h1
+      data-reveal
+      class="text-[clamp(2.5rem,7vw,5rem)] leading-[0.95] tracking-[-0.04em] mb-16 sm:mb-20"
+      transition:name="hero-title"
+    >
+      {t(lang, 'about.title')}
+    </h1>
 
-    <section class="mb-8">
-      <p class="text-base leading-relaxed text-[var(--color-text-muted)]">
-        {t(lang, 'about.intro')}
-      </p>
-      <p class="text-base leading-relaxed text-[var(--color-text-muted)] mt-3">
-        {t(lang, 'about.stack')}
-      </p>
-    </section>
+    <!-- Asymmetric two-column on large screens -->
+    <div class="lg:grid lg:grid-cols-[3fr_2fr] gap-16 lg:gap-20">
 
-    <section>
-      <h2 class="text-lg font-semibold mb-3">{t(lang, 'about.side_heading')}</h2>
-      <p class="text-base leading-relaxed text-[var(--color-text-muted)]">
-        {t(lang, 'about.side')}
-      </p>
-    </section>
+      <section data-reveal data-reveal-delay="80">
+        <p class="text-lg font-light leading-relaxed text-[var(--color-text-muted)] mb-6">
+          {t(lang, 'about.intro')}
+        </p>
+        <p
+          class="font-mono text-sm leading-relaxed text-[var(--color-text-muted)] border-l-2 border-[var(--color-accent)] pl-4"
+        >
+          {t(lang, 'about.stack')}
+        </p>
+      </section>
+
+      <aside data-reveal data-reveal-delay="180" class="mt-10 lg:mt-0">
+        <h2 class="text-xs font-semibold uppercase tracking-[0.15em] text-[var(--color-text-muted)] mb-5 pb-3 border-b border-[var(--color-border)]"
+          style="font-family: 'Inter', system-ui, sans-serif; letter-spacing: 0.15em;">
+          {t(lang, 'about.side_heading')}
+        </h2>
+        <p class="text-base font-light leading-relaxed text-[var(--color-text-muted)]">
+          {t(lang, 'about.side')}
+        </p>
+      </aside>
+
+    </div>
   </main>
 </BaseLayout>
