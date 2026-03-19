@@ -1,4 +1,4 @@
-export const SUPPORTED_LOCALES = ['es', 'en'] as const;
+export const SUPPORTED_LOCALES = ['es', 'en', 'ca', 'de'] as const;
 export type Lang = (typeof SUPPORTED_LOCALES)[number];
 
 export const ui = {
@@ -14,6 +14,8 @@ export const ui = {
     'home.featured_adventures': 'Aventuras',
     'home.see_all_projects': 'Ver todos los proyectos →',
     'home.see_all_adventures': 'Ver todas las aventuras →',
+    'home.stack_heading': 'Tecnologías',
+    'home.hobbies_heading': 'Fuera del teclado',
 
     'projects.title': 'Proyectos',
     'projects.personal': 'Personal',
@@ -52,6 +54,8 @@ export const ui = {
     'home.featured_adventures': 'Adventures',
     'home.see_all_projects': 'All projects →',
     'home.see_all_adventures': 'All adventures →',
+    'home.stack_heading': 'Technologies',
+    'home.hobbies_heading': 'Outside the keyboard',
 
     'projects.title': 'Projects',
     'projects.personal': 'Personal',
@@ -77,6 +81,86 @@ export const ui = {
 
     'lang.switch_label': 'Español',
     'lang.switch_locale': 'es',
+  },
+  ca: {
+    'nav.home': 'Inici',
+    'nav.projects': 'Projectes',
+    'nav.about': 'Sobre mi',
+    'nav.adventures': 'Aventures',
+
+    'home.tagline': 'Building things by day, climbing things by night',
+    'home.subtitle': 'Desenvolupador i aventurer a Girona',
+    'home.featured_projects': 'Projectes destacats',
+    'home.featured_adventures': 'Aventures',
+    'home.see_all_projects': 'Veure tots els projectes →',
+    'home.see_all_adventures': 'Veure totes les aventures →',
+    'home.stack_heading': 'Tecnologies',
+    'home.hobbies_heading': 'Fora del teclat',
+
+    'projects.title': 'Projectes',
+    'projects.personal': 'Personal',
+    'projects.work': 'Feina',
+    'projects.status_paused': 'En pausa',
+    'projects.github': 'GitHub',
+    'projects.live': 'Veure en viu',
+
+    'about.title': 'Sobre mi',
+    'about.subtitle': 'Desenvolupador i aventurer',
+    'about.intro':
+      "Tinc 22 anys i visc a la zona de Lloret de Mar, Girona. Treballo a B4Experience, on m'encarrego del desenvolupament web frontend i backend, i construeixo automatitzacions i integracions amb eines com Odoo i n8n.",
+    'about.stack': 'Stack habitual: Next.js, Supabase, TypeScript i n8n.',
+    'about.side_heading': 'Fora del teclat',
+    'about.side':
+      "Faig escalada en bloc amb l'objectiu d'arribar a l'8A. Condueixo una Honda CBR250R i una Honda CB600F. Tinc el Mont Blanc al radar. La destinació pendent: el Japó.",
+
+    'adventures.title': 'Aventures',
+    'adventures.subtitle': 'Escalada, motos i muntanya',
+    'adventures.cat.climbing': 'Escalada',
+    'adventures.cat.motorcycle': 'Moto',
+    'adventures.cat.mountains': 'Muntanya',
+
+    'lang.switch_label': 'English',
+    'lang.switch_locale': 'en',
+  },
+  de: {
+    'nav.home': 'Start',
+    'nav.projects': 'Projekte',
+    'nav.about': 'Über mich',
+    'nav.adventures': 'Abenteuer',
+
+    'home.tagline': 'Building things by day, climbing things by night',
+    'home.subtitle': 'Entwickler & Abenteurer in Girona',
+    'home.featured_projects': 'Ausgewählte Projekte',
+    'home.featured_adventures': 'Abenteuer',
+    'home.see_all_projects': 'Alle Projekte →',
+    'home.see_all_adventures': 'Alle Abenteuer →',
+    'home.stack_heading': 'Technologien',
+    'home.hobbies_heading': 'Abseits der Tastatur',
+
+    'projects.title': 'Projekte',
+    'projects.personal': 'Persönlich',
+    'projects.work': 'Arbeit',
+    'projects.status_paused': 'Pausiert',
+    'projects.github': 'GitHub',
+    'projects.live': 'Live ansehen',
+
+    'about.title': 'Über mich',
+    'about.subtitle': 'Entwickler & Abenteurer',
+    'about.intro':
+      'Ich bin 22 Jahre alt und lebe in der Gegend von Lloret de Mar, Girona. Ich arbeite bei B4Experience, wo ich für die Frontend- und Backend-Webentwicklung zuständig bin und Automatisierungen und Integrationen mit Tools wie Odoo und n8n aufbaue.',
+    'about.stack': 'Üblicher Stack: Next.js, Supabase, TypeScript und n8n.',
+    'about.side_heading': 'Abseits der Tastatur',
+    'about.side':
+      'Ich bouldere mit dem Ziel, 8A zu klettern. Ich fahre eine Honda CBR250R und eine Honda CB600F. Der Mont Blanc steht auf meiner Liste. Nächstes Reiseziel: Japan.',
+
+    'adventures.title': 'Abenteuer',
+    'adventures.subtitle': 'Klettern, Motorräder & Berge',
+    'adventures.cat.climbing': 'Klettern',
+    'adventures.cat.motorcycle': 'Motorrad',
+    'adventures.cat.mountains': 'Berge',
+
+    'lang.switch_label': 'English',
+    'lang.switch_locale': 'en',
   },
 } as const;
 

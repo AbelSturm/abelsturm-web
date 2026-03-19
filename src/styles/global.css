@@ -168,13 +168,18 @@
     }
   }
 
-  /* ── Nav logo: invert in dark mode so white bg becomes dark ── */
+  /* ── Nav logo: white logo → invert in light mode, keep as-is in dark ── */
   .nav-logo {
-    transition: filter 0.2s ease;
+    filter: invert(1);
+    transition: filter 0.2s ease, opacity 0.2s ease;
+  }
+
+  .nav-logo:hover {
+    opacity: 0.75;
   }
 
   [data-theme="dark"] .nav-logo {
-    filter: invert(1) brightness(0.85);
+    filter: none;
   }
 
   /* ── Theme icon toggle (CSS-driven) ── */

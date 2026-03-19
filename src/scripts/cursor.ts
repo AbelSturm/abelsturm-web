@@ -1,18 +1,30 @@
-const dot = document.querySelector<HTMLElement>('[data-cursor-dot]');
-const ring = document.querySelector<HTMLElement>('[data-cursor-ring]');
-
 // Only activate on pointer devices
-if (dot && ring && !window.matchMedia('(hover: none)').matches) {
+if (!window.matchMedia('(hover: none)').matches) {
+  let dot: HTMLElement | null = null;
+  let ring: HTMLElement | null = null;
   let mouseX = 0;
   let mouseY = 0;
   let ringX = 0;
   let ringY = 0;
+  let hasMovedMouse = false;
   const LERP = 0.12;
+
+  function init() {
+    dot = document.querySelector<HTMLElement>('[data-cursor-dot]');
+    ring = document.querySelector<HTMLElement>('[data-cursor-ring]');
+
+    // Restore cursor visibility if mouse was already active before navigation
+    if (hasMovedMouse) {
+      document.documentElement.classList.add('has-cursor');
+      if (dot) dot.style.transform = `translate(${mouseX}px, ${mouseY}px)`;
+    }
+  }
 
   document.addEventListener('mousemove', (e) => {
     mouseX = e.clientX;
     mouseY = e.clientY;
-    dot!.style.transform = `translate(${mouseX}px, ${mouseY}px)`;
+    if (dot) dot.style.transform = `translate(${mouseX}px, ${mouseY}px)`;
+    hasMovedMouse = true;
     document.documentElement.classList.add('has-cursor');
   });
 
@@ -34,12 +46,18 @@ if (dot && ring && !window.matchMedia('(hover: none)').matches) {
     document.documentElement.classList.remove('cursor-hover');
   });
 
+  // Re-wire cursor elements after each page transition
+  document.addEventListener('astro:page-load', init);
+
   function animateRing() {
-    ringX += (mouseX - ringX) * LERP;
-    ringY += (mouseY - ringY) * LERP;
-    ring!.style.transform = `translate(${ringX}px, ${ringY}px)`;
+    if (ring) {
+      ringX += (mouseX - ringX) * LERP;
+      ringY += (mouseY - ringY) * LERP;
+      ring.style.transform = `translate(${ringX}px, ${ringY}px)`;
+    }
     requestAnimationFrame(animateRing);
   }
 
+  init();
   animateRing();
 }

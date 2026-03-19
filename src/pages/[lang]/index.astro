@@ -88,7 +88,7 @@ const featuredAdventures = allAdventures
     </section>
 
     <!-- Featured Adventures -->
-    <section>
+    <section class="mb-20">
       <div data-reveal class="flex items-baseline justify-between mb-8">
         <h2 class="text-2xl">{t(lang, 'home.featured_adventures')}</h2>
         <a href={`/${lang}/adventures`} class="text-sm text-[var(--color-accent)] hover:underline shrink-0">
@@ -105,6 +105,45 @@ const featuredAdventures = allAdventures
               description={adventure.data.description}
               lang={lang}
             />
+          </div>
+        ))}
+      </div>
+    </section>
+
+    <!-- Technologies -->
+    <section class="mb-20">
+      <h2 data-reveal class="text-2xl mb-8">{t(lang, 'home.stack_heading')}</h2>
+      <div data-reveal class="flex flex-wrap gap-2">
+        {[
+          'TypeScript', 'Next.js', 'React', 'Astro',
+          'Node.js', 'Supabase', 'PostgreSQL',
+          'Tailwind CSS', 'n8n', 'Odoo', 'Docker', 'Git',
+        ].map((tech) => (
+          <span class="px-3 py-1.5 rounded-md border border-[var(--color-border)] bg-[var(--color-bg-subtle)] text-sm text-[var(--color-text-muted)]">
+            {tech}
+          </span>
+        ))}
+      </div>
+    </section>
+
+    <!-- Hobbies -->
+    <section>
+      <h2 data-reveal class="text-2xl mb-8">{t(lang, 'home.hobbies_heading')}</h2>
+      <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+        {[
+          { emoji: '🧗', label: lang === 'es' ? 'Escalada en bloque' : 'Bouldering', detail: lang === 'es' ? 'Objetivo: 8A' : 'Goal: 8A' },
+          { emoji: '🏍️', label: lang === 'es' ? 'Motorismo' : 'Motorcycles', detail: 'CBR250R · CB600F' },
+          { emoji: '⛰️', label: lang === 'es' ? 'Montañismo' : 'Mountaineering', detail: 'Mont Blanc' },
+          { emoji: '✈️', label: lang === 'es' ? 'Viajes' : 'Travel', detail: lang === 'es' ? 'Próximo: Japón' : 'Next: Japan' },
+        ].map(({ emoji, label, detail }, i) => (
+          <div
+            data-reveal
+            data-reveal-delay={i * 80}
+            class="p-5 rounded-xl border border-[var(--color-border)] bg-[var(--color-bg-subtle)]"
+          >
+            <div class="text-3xl mb-3">{emoji}</div>
+            <div class="font-semibold text-sm text-[var(--color-text)] mb-0.5">{label}</div>
+            <div class="text-xs text-[var(--color-text-muted)]">{detail}</div>
           </div>
         ))}
       </div>

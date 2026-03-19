@@ -1,5 +1,5 @@
 ---
-import { t, type Lang } from '../i18n/ui';
+import { t, SUPPORTED_LOCALES, type Lang } from '../i18n/ui';
 
 interface Props {
   lang: Lang;
@@ -7,13 +7,10 @@ interface Props {
 
 const { lang } = Astro.props;
 const base = `/${lang}`;
-const switchLocale = t(lang, 'lang.switch_locale') as Lang;
-const switchLabel = t(lang, 'lang.switch_label');
-
 const currentPath = Astro.url.pathname;
-const switchPath = currentPath.replace(new RegExp(`^/${lang}`), `/${switchLocale}`);
 
 const links = [
+  { href: base,                 label: t(lang, 'nav.home') },
   { href: `${base}/projects`,   label: t(lang, 'nav.projects') },
   { href: `${base}/adventures`, label: t(lang, 'nav.adventures') },
   { href: `${base}/about`,      label: t(lang, 'nav.about') },
@@ -34,7 +31,7 @@ const links = [
       />
     </a>
 
-    <ul class="flex items-center gap-1 text-sm overflow-x-auto">
+    <ul class="flex items-center gap-1 text-sm">
       {links.map(({ href, label }) => (
         <li>
           <a
@@ -46,14 +43,21 @@ const links = [
         </li>
       ))}
 
-      <!-- Lang switcher -->
-      <li>
-        <a
-          href={switchPath}
-          class="ml-1 px-2.5 py-1.5 rounded-md border border-[var(--color-border)] text-xs text-[var(--color-text-muted)] hover:text-[var(--color-text)] hover:bg-[var(--color-bg-subtle)] whitespace-nowrap"
-        >
-          {switchLabel}
-        </a>
+      <!-- Lang switcher: all locales -->
+      <li class="ml-1 flex items-center gap-0.5 border border-[var(--color-border)] rounded-md px-1 py-0.5">
+        {SUPPORTED_LOCALES.map((locale) => (
+          <a
+            href={currentPath.replace(new RegExp(`^/${lang}`), `/${locale}`)}
+            aria-current={locale === lang ? 'true' : undefined}
+            class={`px-1.5 py-0.5 rounded text-xs font-medium transition-colors ${
+              locale === lang
+                ? 'text-[var(--color-text)] bg-[var(--color-bg-subtle)]'
+                : 'text-[var(--color-text-muted)] hover:text-[var(--color-text)]'
+            }`}
+          >
+            {locale.toUpperCase()}
+          </a>
+        ))}
       </li>
 
       <!-- Dark mode toggle -->
